@@ -1,19 +1,19 @@
 node{
      
-    stage('SCM Checkout'){
-        git credentialsId: 'GIT_CREDENTIALS', url:  'https://github.com/MithunTechnologiesDevOps/spring-boot-mongo-docker.git',branch: 'master'
+    stage("Git clone"){
+       git branch: 'main', credentialsId: 'GIT_CREDENTIALS', url: 'https://github.com/RT-Technologies/spring-boot-mongo-docker.git'
     }
     
     stage(" Maven Clean Package"){
-      def mavenHome =  tool name: "Maven-3.6.1", type: "maven"
+      
+      def mavenHome =  tool name: "Maven_3.8.1", type: "maven"
       def mavenCMD = "${mavenHome}/bin/mvn"
       sh "${mavenCMD} clean package"
-      
     } 
-    
-    
     stage('Build Docker Image'){
-        sh 'docker build -t dockerhandson/spring-boot-mongo .'
+        sh "docker build -t dockerhandson/spring-boot-mongo ."
+    }
+    
     }
     
     stage('Push Docker Image'){
