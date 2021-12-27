@@ -4,23 +4,21 @@ node{
        git branch: 'main', credentialsId: 'GIT_CREDENTIALS', url: 'https://github.com/RT-Technologies/spring-boot-mongo-docker.git'
     }
     
-    stage(" Maven Clean Package"){
+    stage(" Maven Build jar"){
       
       def mavenHome =  tool name: "Maven_3.8.1", type: "maven"
       def mavenCMD = "${mavenHome}/bin/mvn"
       sh "${mavenCMD} clean package"
     } 
     stage('Build Docker Image'){
-        sh "docker build -t dockerhandson/spring-boot-mongo ."
-    }
-    
+        sh "docker build -t dockerid901999/spring-boot-mongo ."
     }
     
     stage('Push Docker Image'){
-        withCredentials([string(credentialsId: 'DOKCER_HUB_PASSWORD', variable: 'DOKCER_HUB_PASSWORD')]) {
-          sh "docker login -u dockerhandson -p ${DOKCER_HUB_PASSWORD}"
+        withCredentials([string(credentialsId: 'DOCKER_HUB_PASS', variable: 'DOCKER_HUB_PASS')]) {
+          sh "docker login -u dockerid901999 -p ${DOCKER_HUB_PASS}"
         }
-        sh 'docker push dockerhandson/spring-boot-mongo'
+          sh 'docker push dockerid901999/spring-boot-mongo'
      }
      
      stage("Deploy To Kuberates Cluster"){
