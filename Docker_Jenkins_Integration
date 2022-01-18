@@ -1,0 +1,19 @@
+Jenkins set up
+
+yum install wget -y
+yum install epel-release # repository that provides 'daemonize'
+yum install java-11-openjdk-devel -y
+curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
+sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+sudo yum install jenkins -y
+sudo systemctl start jenkins
+systemctl status jenkins
+yum install git -y
+
+Docker set up in jenkins
+
+curl -fsSL get.docker.com | /bin/bash
+sudo usermod -aG docker jenkins
+sudo systemctl restart jenkins
+sudo systemctl status docker
+sudo systemctl start docker
