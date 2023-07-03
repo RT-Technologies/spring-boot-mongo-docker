@@ -1,5 +1,5 @@
 ---
-- name: Install nginx
+- name: Uninstall nginx
   hosts: web
   become: true
 
